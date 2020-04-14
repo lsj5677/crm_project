@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.crm.dao.TsalesDao">
+		
+		<select id="tsalesList" resultType="tsales">
+			SELECT	A.YEAR
+			FROM 	SPRING_TSALES A
+			<if test="year!=null and year !=''">
+				AND YEAR LIKE '%' || #{year} || '%'
+			</if>
+			ORDER BY A.YEAR ASC
+		</select>
+		
+		<select id="tsalesSearch" parameterType="string" resultType="tsales">
+			SELECT	 A.JAN
+					,A.FEB
+					,A.MAR
+					,A.APR
+					,A.MAY
+					,A.JUN
+					,A.JUL
+					,A.AUG
+					,A.SEP
+					,A.OCT
+					,A.NOV
+					,A.DEC			
+					,A.YEAR
+			FROM 	 SPRING_TSALES A
+			WHERE 	 A.YEAR = #{year}
+			ORDER BY A.YEAR ASC
+		</select> 
+		
+		<insert id="tsalesInsert" parameterType="tsales">
+			INSERT INTO SPRING_TSALES
+			(JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, YEAR)
+			VALUES
+			(#{jan},#{feb},#{mar},#{apr},#{may},#{jun},#{jul},#{aug},#{sep},#{oct},#{nov},#{dec},#{year})
+		</insert>
+		
+		<update id="tsalesUpdate" parameterType="tsales" >
+			UPDATE SPRING_TSALES
+			SET		 JAN = #{jan}
+					,FEB = #{feb}
+					,MAR = #{mar}
+					,APR = #{apr}
+					,MAY = #{may}
+					,JUN = #{jun}
+					,JUL = #{jul}
+					,AUG = #{aug}
+					,SEP = #{sep}
+					,OCT = #{oct}
+					,NOV = #{nov}
+					,DEC = #{dec}			
+					,YEAR = #{year}
+			WHERE 	 YEAR = #{year}
+		</update>
+		
+</mapper>

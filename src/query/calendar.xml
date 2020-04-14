@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Congig 3.0//EN" "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crm.dao.CalendarDAO">
+
+	<insert id="addEvent" parameterType="calVO"	useGeneratedKeys="true" keyProperty="_id">
+		INSERT INTO crm_calendar(
+			 c_calendar_id
+			,c_calendar_title
+			,c_calendar_start
+			,c_calendar_end
+			,c_calendar_color
+			,c_calendar_text
+			,c_calendar_allDay
+			,c_User_Id
+		)VALUES(
+			 #{_id}
+			,#{title}
+			,#{start}
+			,#{end}
+			,#{backgroundColor}
+			,#{description}
+			,#{allDay}
+			,#{c_User_Id}
+		)
+	</insert>
+
+	<select id="getAllEvents" parameterType="calVO" resultType="calVO">
+		SELECT	 c_calendar_id		AS _id
+				,c_calendar_title	AS title
+				,c_calendar_start	AS start
+				,c_calendar_end		AS end
+				,c_calendar_color	AS backgroundColor
+				,c_calendar_text	AS description
+				,c_calendar_allDay	AS allDay
+				,c_User_Id
+		FROM	 crm_calendar
+		WHERE	 c_User_Id = #{c_User_Id}
+	</select>
+
+	<select id="getTodayEvents" parameterType="calVO" resultType="calVO">
+		SELECT	 c_calendar_id		AS _id
+				,c_calendar_title	AS title
+				,c_calendar_start	AS start
+				,c_calendar_end		AS end
+		FROM	 crm_calendar
+		WHERE	 c_User_Id = #{c_User_Id}
+		AND		 c_calendar_start LIKE '%'||#{start}||'%'
+	</select>
+	
+</mapper>

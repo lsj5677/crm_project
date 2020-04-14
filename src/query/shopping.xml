@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.crm.dao.ShoppingDao">
+	<!-- list-->
+	<select id="shoppingList" parameterType="shopping" resultType="shopping">
+	SELECT
+		 A.C_SHOPPING_ID,
+		 A.C_SHOPPING_DELETEYN,
+		 A.C_SHOPPING_INSERTDATE,
+		 A.C_SHOPPING_UPDATEDATE,
+		 A.C_ID,
+		 A.C_USER_ID,
+		 A.C_NAME
+	FROM CRM_SHOPPING_INFO A
+	WHERE A.C_SHOPPING_DELETEYN = 'Y'
+	ORDER BY 1 DESC
+	</select>
+
+	<!-- chaebun -->
+	<select id="shoppingChaebun" resultType="shopping">
+		SELECT NVL(MAX(SUBSTR(A.C_SHOPPING_ID, -4)), 0) + 1 C_SHOPPING_ID FROM CRM_SHOPPING_INFO A
+	</select>
+	
+	<!-- insert -->
+	<insert id="shoppingInsert" parameterType="shopping">
+		INSERT INTO CRM_SHOPPING_INFO
+			 (C_SHOPPING_ID
+			 ,C_SHOPPING_DELETEYN
+			 ,C_SHOPPING_INSERTDATE
+			 ,C_SHOPPING_UPDATEDATE
+			 ,C_ID
+			 ,C_USER_ID
+			 ,C_NAME)
+		VALUES
+			 (#{c_shopping_id}
+			 ,'Y'
+			 ,SYSDATE
+			 ,SYSDATE
+			 ,#{c_id}
+			 ,#{c_user_id}
+			 ,#{c_name})
+	</insert>
+	
+	<!-- 재고추가 -->
+	<update id="shoppingStockPlus" parameterType="shopping">
+		UPDATE CRM_PRODUCT
+		SET C_STOCK = TO_NUMBER(C_STOCK)+1
+		WHERE C_ID = #{c_id}
+	</update>
+	
+	<!-- 재고빠지기 -->
+	<update id="shoppingStock" parameterType="shopping">
+		UPDATE CRM_PRODUCT
+		SET C_STOCK = TO_NUMBER(C_STOCK)-1
+		WHERE C_ID = #{c_id} 
+		<!-- WHERE C_SHOPPING_ID = '0002'-->
+	</update>
+	
+	<!-- update == delete btn -->
+	<update id="shoppingUpdate" parameterType="shopping">
+		UPDATE CRM_SHOPPING_INFO
+		SET C_SHOPPING_DELETEYN = 'N'
+		WHERE C_SHOPPING_ID = #{c_shopping_id}
+		AND C_SHOPPING_DELETEYN = 'Y'
+	</update>
+	
+	<!-- delete == payment btn -->
+	<delete id="shoppingDelete" parameterType="shopping">
+		DELETE
+		FROM CRM_SHOPPING_INFO
+		WHERE C_SHOPPING_ID = #{c_shopping_id}
+		AND C_SHOPPING_DELETEYN = 'Y'	
+	</delete>
+</mapper>

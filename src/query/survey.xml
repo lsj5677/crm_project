@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crm.dao.SurveyDao">
+	<!-- <select id="surveyList" resultType="survey">
+			SELECT
+				   A.C_CLIENT_NO
+				  ,A.C_CLIENT_NAME
+				  ,A.C_CLIENT_EMAIL
+				  ,A.C_USER_NAME
+				  ,A.C_GETDATE
+				  ,A.C_OVERALL
+				  ,A.C_SATISF
+				  ,A.C_FEEDBACK
+				  ,A.C_RECOMMEND
+				  ,A.C_OPINION
+				  ,A.C_DELETEYN
+		    FROM CRM_SURVEY A
+		    ORDER BY 1
+	</select> -->
+	
+	<insert id="surveyInsert" parameterType="survey">
+			INSERT INTO CRM_SURVEY
+			(C_CLIENT_NO, C_CLIENT_NAME,C_CLIENT_EMAIL, C_USER_NAME, C_GETDATE, C_OVERALL, C_SATISF, C_FEEDBACK, C_RECOMMEND, C_OPINION,C_DELETEYN)
+			VALUES(
+				 #{c_client_no}
+				,#{c_client_name}
+				,#{c_client_email}
+				,#{c_user_name}
+				,SYSDATE
+				,#{c_overall}
+				,#{c_satisf}
+				,#{c_feedback}
+				,#{c_recommend}
+				,#{c_opinion}
+				,'Y'
+				  )
+	</insert>
+	
+	<select id="surveyDetail" parameterType="survey" resultType="survey">
+		   	SELECT
+			   A.C_CLIENT_NO
+			  ,A.C_CLIENT_NAME
+			  ,A.C_CLIENT_EMAIL
+			  ,A.C_USER_NAME
+			  ,A.C_GETDATE
+			  ,A.C_OVERALL
+			  ,A.C_SATISF
+			  ,A.C_FEEDBACK
+			  ,A.C_RECOMMEND
+			  ,A.C_OPINION
+			  ,A.C_DELETEYN
+		    FROM CRM_SURVEY A
+		    <!-- WHERE A.C_CLIENT_NO = #{c_client_no} -->
+		    WHERE A.C_CLIENT_NO = #{c_client_no}
+	</select>
+	
+	<select id="surveyCountBoard" resultType="int">
+		SELECT COUNT(*) 
+		FROM CRM_SURVEY
+		WHERE C_DELETEYN = 'Y'
+	</select>
+	
+	<select id="surveyList" resultType="survey"> 
+		SELECT *
+		FROM (
+			SELECT ROWNUM RN, A.*
+			FROM (
+					SELECT  
+					 C_CLIENT_NO
+					  ,C_CLIENT_NAME
+					  ,C_CLIENT_EMAIL
+					  ,C_OVERALL
+					, TO_CHAR(C_GETDATE,'YYYY-MM-DD') AS C_GETDATE
+					FROM CRM_SURVEY
+					WHERE C_DELETEYN = 'Y'
+					ORDER BY C_CLIENT_NO DESC
+			) A
+		)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="surveyChaebun" resultType="survey">
+		SELECT NVL(MAX(SUBSTR(C_CLIENT_NO, 2)),0)+1 AS C_CLIENT_NO FROM CRM_SURVEY		
+	</select>
+</mapper>

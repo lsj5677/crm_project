@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.crm.dao.ClientDao">
+
+	<!-- chaebun -->
+	<select id="clientChaebun" resultType="string">
+		SELECT NVL(MAX(SUBSTR(A.c_Client_No, -4)),0) +1 AS c_Client_No FROM crm_Client A 
+	</select>
+	<!-- 인서트 -->
+	<insert id="clientInsertOk" parameterType="client">
+		INSERT INTO crm_Client (
+			 c_Client_No
+			,c_Client_Name
+			,c_Client_Hp
+			,c_Client_Email
+			,c_Client_Birth
+			,c_Client_Addr
+			,c_Client_Addr2
+			,c_Client_Addr3
+			,c_User_Id
+			,c_Client_Insertdate
+			,c_Client_Updatedate
+			,c_Client_DeleteYN
+		) VALUES (
+			 #{c_Client_No}
+			,#{c_Client_Name}
+			,#{c_Client_Hp}
+			,#{c_Client_Email}
+			,#{c_Client_Birth}
+			,#{c_Client_Addr}
+			,#{c_Client_Addr2}
+			,#{c_Client_Addr3}
+			,#{c_User_Id}
+			,SYSDATE
+			,SYSDATE
+			,'Y'
+		)
+	</insert>
+	<!-- 고객 번호 조회(업데이트 폼) -->
+	<select id="clientNo"  parameterType="String" resultType="client">
+		SELECT	 a.*
+		FROM 	 crm_Client a
+		WHERE 	 a.c_Client_No = #{c_Client_No}
+		AND 	 a.c_Client_DeleteYN = 'Y'
+	</select>
+	<!-- 업데이트 -->
+	<update id="clientUpdateOk" parameterType="client">
+		UPDATE	 crm_Client			
+		SET    	 c_User_Id = #{c_User_Id}		
+		      	,c_Client_Name = #{c_Client_Name}
+		      	,c_Client_Hp = #{c_Client_Hp}
+		      	,c_Client_Email = #{c_Client_Email}
+		      	,c_Client_Birth = #{c_Client_Birth}			
+		      	,c_Client_Addr = #{c_Client_Addr}		
+		      	,c_Client_Addr2 = #{c_Client_Addr2}			
+		      	,c_Client_Addr3 = #{c_Client_Addr3}			
+		      	,c_Client_Updatedate = SYSDATE
+		WHERE 	 c_Client_No = #{c_Client_No}
+	</update>
+	<!-- 딜리트 -->
+	<update id="clientDeleteOk" parameterType="String">
+		UPDATE	 crm_Client			
+		SET  	 c_Client_DeleteYN = 'N'
+		WHERE 	 c_Client_No = #{c_Client_No}
+	</update>
+	<!-- 총 게시글 갯수 출력 -->
+	<select id="clientCountBoard" resultType="int">
+		SELECT COUNT(*) FROM crm_Client
+		WHERE c_Client_DeleteYN = 'Y' 
+		<trim prefix="AND">
+			<if test="search =='name'">
+				c_Client_Name LIKE '%' || #{keyword}|| '%'
+			</if>
+		</trim>
+	</select>
+	<!-- 페이징 처리 후 게시글 조회 -->
+	<select id="clientList" resultType="client">
+		SELECT * 
+		FROM (
+			SELECT ROWNUM RN, A.* 
+				FROM (
+						SELECT * 
+						FROM crm_Client
+						WHERE c_Client_DeleteYN = 'Y' 
+						ORDER BY c_Client_No DESC 
+						) A
+				)
+		<choose>
+			<when test="search =='name'">
+				WHERE c_Client_Name LIKE '%' || #{keyword}|| '%'
+			</when>
+			<otherwise>
+				WHERE RN BETWEEN #{start} AND #{end}
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 직원 체크 -->
+	<select id="clientCheck" parameterType="String" resultType="int">
+		SELECT	 COUNT(*)		
+		FROM 	 crm_User
+		WHERE 	 c_User_Id = #{c_User_Id}
+		AND 	 c_User_DeleteYN = 'Y'
+	</select>
+
+</mapper>

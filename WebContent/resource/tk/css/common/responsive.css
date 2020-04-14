@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+
+/*rseponsive*/
+@media screen and (max-width: 780px){
+	.header .header-wrap,
+	.footer .footer-wrap {
+		width: 90%;
+	}
+
+	.container {
+		margin-left: 0;
+	}
+
+	.sidebar {
+		left: -220px;
+	}
+}

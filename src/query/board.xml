@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crm.dao.BoardDao">
+<sql id="boardCommon">
+	SELECT c_board_no, 
+	c_board_name, 
+	c_board_title, 
+	c_board_insertdate,
+	c_board_viewcount,
+	c_board_select
+	FROM FREE_BOARD
+	<trim prefix="WHERE" prefixOverrides="AND">
+		<if test="search=='c_board_select'">
+		<![CDATA[c_board_title LIKE '%'|| #{keyword}||'%']]>
+	
+	</if>
+	<if test="search=='c_board_title'">
+		<![CDATA[ AND c_board_title LIKE '%'|| #{keyword}||'%']]>
+	
+	</if>
+	
+	<if test="search=='c_board_name'">
+		<![CDATA[ AND c_board_name LIKE '%'|| #{keyword}||'%']]>
+	
+	</if>
+	<if test="search=='c_board_content'">
+		<![CDATA[ AND c_board_content LIKE '%'|| #{keyword}||'%']]>
+	
+	</if>
+	
+	<if test="search=='c_board_insertdate'">
+		<![CDATA[ AND to_char(c_board_insertdate,'yyyy-mm-dd') between #{startDate} and #{endDate}]]>
+	</if>
+	</trim>
+	
+</sql>
+
+
+ <!--게시물 전체 조회 -->
+<select id = "boardList" parameterType="board" resultType="board">
+	select 
+
+	c_board_no,
+	c_board_name, 
+	c_board_title,
+	c_board_viewcount,
+	c_board_select,
+	
+	(SELECT 
+			COUNT(*) 
+	FROM free_comment a,FREE_BOARD b  
+	WHERE a.c_board_no = b.c_board_no 
+	AND a.c_board_no = aaa.c_board_no) AS c_reply_cnt,
+	
+    to_char(c_board_insertdate,'YYYY-MM-DD') as c_board_insertdate
+	FROM (SELECT list.*,ROWNUM AS RNUM
+
+	FROM( <include refid="boardCommon"></include>
+	ORDER BY c_board_no DESC
+) list
+	<if test="c_board_select == '공지사항'">
+		WHERE c_board_select = '공지사항'
+	</if>
+	<if test="c_board_select == '자유게시판'">
+		WHERE c_board_select = '자유게시판'
+	</if>
+
+)aaa
+<where>
+	<if test="start_row != null and start_row !=''">
+	<if test="end_row != null and end_row !=''">
+		RNUM BETWEEN #{start_row} AND #{end_row}
+	
+	</if>
+	
+	</if>
+</where>
+
+
+</select> 
+
+
+
+<select id="boardListCnt1" parameterType="board" resultType="int">
+SELECT NVL(count(1),0)FROM
+(	SELECT list.*,ROWNUM AS RNUM
+	FROM(
+		<include refid="boardCommon"></include>
+		ORDER BY c_board_no desc
+	)list
+	<if test="c_board_select == '공지사항'">
+		WHERE c_board_select = '공지사항'
+	</if>
+	<if test="c_board_select == '자유게시판'">
+		WHERE c_board_select = '자유게시판'
+	</if>
+)
+
+
+</select>
+
+<!-- 상세페이지 -->
+<select id= "boardDetail" parameterType="String" resultType="board">
+SELECT
+	c_board_no,c_board_name,c_board_title,c_board_content,c_board_img,c_board_select,
+	TO_CHAR(c_board_insertdate,'YYYY-MM-DD')AS c_board_insertdate
+	FROM FREE_BOARD
+	WHERE c_board_no =#{c_board_no}
+</select>
+
+<!-- 게시물 등록 -->
+<insert id ="boardInsert" parameterType="board">
+
+INSERT INTO FREE_BOARD(
+	c_board_no,
+	c_board_name,
+	c_board_title,
+	c_board_content,
+	c_board_img,
+	c_board_pw,
+	c_board_select
+) VALUES(
+		#{c_board_no}
+		,#{c_board_name}
+		,#{c_board_title}
+		,#{c_board_content}
+		,#{c_board_img}
+		,#{c_board_pw}
+		,#{c_board_select}
+)
+
+</insert>
+<!-- 해당 번호의 비밀번호 확인 -->
+<select id="pwdConfirm" parameterType="board" resultType= "int">
+	SELECT NVL((
+	SELECT 1 FROM FREE_BOARD
+	WHERE c_board_no = #{c_board_no} AND c_board_pw = #{c_board_pw}
+	),0) as result
+		FROM dual
+</select>
+<!-- 게시물 수정 -->
+<update id="boardUpdate" parameterType="board">
+	UPDATE FREE_BOARD SET
+		c_board_title =#{c_board_title}
+		,c_board_name =#{c_board_name}
+		,c_board_content =#{c_board_content}
+		,c_board_insertdate = sysdate
+		<if test="c_board_img != '' ">
+		,c_board_img = #{c_board_img}
+		
+ 		</if>
+ <if test="c_board_pw != null and c_board_pw !=''">
+ 	,c_board_pw =#{c_board_pw} 
+ </if>
+	WHERE c_board_no =#{c_board_no}
+
+</update>
+
+<!--  게시물 삭제 -->
+<delete id ="boardDelete" parameterType="board">
+	DELETE FROM FREE_BOARD WHERE c_board_no = #{c_board_no}
+</delete>
+
+<update id="updateViewCnt0">
+	update FREE_BOARD
+	set c_board_viewcount = NVL(c_board_viewcount,0) + 1
+	where c_board_no = #{c_board_no}
+
+
+</update>
+
+	<select id="chaebunBoard3" parameterType="board" resultType="int">
+	SELECT NVL(MAX(SUBSTR(c_board_no,2)),0) +
+	 1 AS c_board_no 
+	 FROM FREE_BOARD
+	
+ </select>
+
+<select id = "boardNotice" resultType="board">
+	SELECT	 c_board_no	 
+			,c_board_select
+			,c_board_name
+			,c_board_title
+			,c_board_select
+			,TO_CHAR(c_board_insertdate,'YYYY-MM-DD') AS c_board_insertdate
+	FROM 	 FREE_BOARD
+  	WHERE    c_board_select = '공지사항'
+	ORDER BY c_board_no DESC
+</select> 
+
+</mapper>

@@ -1,0 +1,126 @@
+@CHARSET "UTF-8";
+
+/*rseponsive*/
+@media screen and (max-width: 1405px) {
+	.fc-scroller.fc-day-grid-container {
+		height: 600px !important;
+		overflow: inherit !important;
+	}
+}
+
+@media screen and (max-width: 1280px) {
+	.wrap table td {
+		font-size: 12px;
+	}
+	.sub-container .sub-container-contents.col-2 {
+		width: 100%;
+		margin: 30px 0;
+	}
+	.sub-container .sub-container-contents.res-margin-none {
+		margin-top: 0;
+	}
+	.flex-section {
+		display: block;
+	}
+	#product-list-wrap .product-list-item {
+		width: 33.333%;
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	.wrap table th.res-none-spc, .wrap table td.res-none-spc {
+		display: none;
+	}
+	#exRate {
+		display: block;
+	}
+	.exConBox {
+		width: 50%;
+		margin: 0;
+		float: left;
+		box-sizing: border-box;
+		margin-bottom: 40px;
+	}
+	.exConBox:nth-child(3) {
+		float: right;
+	}
+	footer {
+		clear: both;
+	}
+}
+
+@media screen and (max-width: 960px) {
+	.userList-wrap {
+		display: block;
+	}
+	.contents {
+		display: inline-block;
+		width: 100%;
+		box-sizing: border-box;
+		min-height: auto;
+	}
+	#userList-left-box {
+		width: 100%;
+		box-sizing: border-box;
+		margin-bottom: 40px;
+	}
+	#product-list-wrap .product-list-item {
+		width: 50%;
+	}
+	.cgroup {
+		text-align: left;
+	}
+	.cgroup>input {
+		display: block;
+	}
+	.sub-container .sub-container-contents {
+		display: block;
+	}
+	.sub-container .sub-container-contents.col {
+		float: none;
+	}
+	#weather, #dust {
+		position: relative;
+		height: 150px;
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 780px) {
+	.header .header-wrap, .footer .footer-wrap {
+		width: 90%;
+	}
+	.container {
+		margin-left: 0;
+		padding: 50px 0;
+	}
+	.sidebar {
+		left: -220px;
+	}
+	.wrap table {
+		/* table-layout: fixed; */
+	}
+	.wrap table th.res-none-mo, .wrap table td.res-none-mo {
+		display: none;
+	}
+	#product-list-wrap .product-list-item {
+		width: 100%;
+	}
+	.chartjs-render-monitor {
+		padding-top: 20px;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.page-select-box {
+		display: none;
+	}
+	.exConBox {
+		width: 100%;
+		float: none;
+		margin-bottom: 0;
+	}
+	.exConBox:last-child {
+		clear: both;
+	}
+}

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.crm.dao.Perforamna">
+	<!-- 인서트 -->
+	<insert id="performanceInsertOk" parameterType="performance">
+		INSERT INTO crm_Performance(
+                    c_User_Id,
+					c_Performance_Result,
+                    c_Performance_Insertdate,
+                    c_Performance_DeleteYN								
+			)
+			VALUES(
+				#{c_User_Id},#{c_Performance_Result},#{c_Performance_Insertdate},'Y'
+			)
+	</insert>
+	<!-- 업데이트 폼에 보여질 데이터 -->
+	<select id="performanceUpdateForm"  parameterType="performance" resultType="performance">
+		SELECT 
+			c_User_Id,
+		 	c_Performance_Result,
+		 	TO_CHAR(c_Performance_Insertdate,'YY/MM/DD HH24:MI:SS') AS c_Performance_Insertdate
+		FROM crm_Performance 
+		WHERE c_User_Id = #{c_User_Id}
+		AND c_Performance_Result = #{c_Performance_Result}
+        AND TO_CHAR(c_Performance_Insertdate,'YY/MM/DD HH24:MI:SS') = #{c_Performance_Insertdate}
+	</select>
+	<!-- 실적 등록완료 -->
+	<update id="performanceUpdateOk" parameterType="performance">
+		UPDATE crm_Performance
+		SET c_Performance_Result = #{c_Performance_Result},
+			c_Performance_Insertdate = SYSDATE
+		WHERE c_User_Id = #{c_User_Id}
+		AND TO_CHAR(c_Performance_Insertdate,'YY/MM/DD HH24:MI:SS') = #{c_Performance_Insertdate}
+	</update>
+	<!-- 실적 삭제완료 -->
+	<update id="performanceDelete" parameterType="performance">
+		UPDATE crm_Performance
+		SET c_Performance_DeleteYN = 'N'
+		WHERE c_User_Id = #{c_User_Id}
+		AND c_Performance_Result = #{c_Performance_Result}
+		AND TO_CHAR(c_Performance_Insertdate,'YY/MM/DD HH24:MI:SS') = #{c_Performance_Insertdate}
+	</update>
+
+	<!-- 한달 매출 구하는 쿼리문 -->
+	<select id="performanceResultMonth" parameterType="String" resultType="performance">
+		SELECT NVL(SUM(TO_NUMBER(c_Performance_Result)),0) AS c_Performance_Result
+    	FROM crm_Performance 
+    	WHERE c_Performance_DeleteYN = 'Y'
+    	AND TO_CHAR(c_Performance_Insertdate,'YY/MM') = #{day}
+	</select>
+	<!-- 실적 리스트 -->	
+	<select id="performanceList" parameterType="performance" resultType="performance">
+	SELECT
+		 c_User_Id,
+		 c_Performance_Result,
+		 TO_CHAR(c_Performance_Insertdate,'YY/MM/DD HH24:MI:SS') AS c_Performance_Insertdate
+	FROM crm_Performance 
+	WHERE c_Performance_DeleteYN = 'Y'
+	AND c_User_Id = #{c_User_Id}
+	<if test="search =='date'">
+	AND TO_CHAR(c_Performance_Insertdate,'YY/MM/DD HH24:MI:SS') LIKE '%' || #{keyword}|| '%'
+	</if>
+	ORDER BY c_Performance_Insertdate ASC
+	</select>
+	<!-- 직원 체크 -->
+	<select id="userCheck" parameterType="String" resultType="int">
+		SELECT 
+			COUNT(*)		
+		FROM crm_User
+		WHERE c_User_Id = #{c_User_Id}
+		AND c_User_DeleteYN = 'Y'
+	</select>
+	
+	<!-- 그래프에 보여줄 매출 합친 금액 -->
+	<select id="performanceResult" parameterType="hashmap" resultType="performance">
+		SELECT NVL(SUM(TO_NUMBER(c_Performance_Result)),0) AS c_Performance_Result
+    	FROM crm_Performance
+    	WHERE TO_CHAR(c_Performance_Insertdate,'YY/MM/DD') = #{c_Performance_Insertdate} 
+    	AND c_Performance_DeleteYN = 'Y'
+    	<if test="level == 1">
+    		AND c_User_Id = #{c_User_Id}
+    	</if>
+	</select>
+	<!-- 세션 한달매출  -->
+	<select id="performanceSessionMonth" parameterType="hashmap" resultType="performance">
+		SELECT NVL(SUM(TO_NUMBER(c_Performance_Result)),0) AS c_Performance_Result
+    	FROM crm_Performance 
+    	WHERE TO_CHAR(c_Performance_Insertdate,'YY/MM') = #{c_Performance_Insertdate}
+    	AND c_Performance_DeleteYN = 'Y'
+    	<if test="level == 1">
+    		AND c_User_Id = #{c_User_Id}
+    	</if>
+    	
+	</select>
+	
+</mapper>

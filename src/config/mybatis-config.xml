@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org.//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd"> 
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.crm.vo.ShoppingVO" alias="shopping"/>	
+		<typeAlias type="com.crm.vo.ProductVO" alias="product"/>
+		<typeAlias type="com.crm.vo.SurveyVO" alias="survey" />
+		<typeAlias type="com.crm.vo.TsalesVO" alias="tsales" />
+		<typeAlias type="com.crm.vo.CalendarVO" alias="calVO"/>
+		<typeAlias type="com.crm.vo.ClientVO" alias="client"/>
+		<typeAlias type="com.crm.vo.UserVO" alias="user"/>	
+		<typeAlias type="com.crm.vo.BoardVO" alias="board"/>
+		<typeAlias type="com.crm.vo.ReplyVO" alias="reply"/> 
+		<typeAlias type="com.crm.vo.MaterialsVO" alias="materials"/>
+		<typeAlias type="com.crm.vo.PagingVO" alias="paging"/>
+		<typeAlias type="com.crm.vo.PerformanceVO" alias="performance"/>
+	</typeAliases>
+</configuration>

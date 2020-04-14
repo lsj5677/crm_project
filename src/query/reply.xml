@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crm.dao.ReplyDao">
+<!--  게시물 기본 조회 -->
+<select id = "replyList" parameterType="reply" resultType="reply">
+	select c_comment_no,c_board_no, c_comment_name, c_comment_content, c_comment_pw,
+		to_char(c_comment_insertdate,'YYYY-MM-DD HH24:MI:SS')as c_comment_insertdate
+		from free_comment
+		where c_board_no = #{c_board_no}
+		order by c_comment_no desc
+</select>
+
+<!--  게시물 등록  -->
+<insert id="replyInsert" parameterType="reply">
+	
+	insert into free_comment(
+	c_comment_no,c_board_no,c_comment_name,c_comment_content,c_comment_pw)
+	values(
+		#{c_comment_no},#{c_board_no},#{c_comment_name},#{c_comment_content},#{c_comment_pw}
+	)
+</insert>
+
+<update id="replyUpdate" parameterType="reply">
+	update free_comment
+	set c_comment_content = #{c_comment_content},
+	c_comment_insertdate = sysdate
+	where c_comment_no = #{c_comment_no}
+
+</update>
+
+<delete id="replyDelete" parameterType= "reply">
+
+delete from free_comment where c_comment_no= #{c_comment_no}
+
+
+</delete>
+	<select id="chaebunBoard8" parameterType="reply" resultType="int">
+	SELECT NVL(MAX(SUBSTR(c_comment_no,2)),0) +
+	 1 AS c_comment_no 
+	 FROM free_comment
+	
+ </select>
+</mapper>

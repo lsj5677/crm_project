@@ -1,0 +1,9 @@
+#shopping-list-table tr td .readonlyBtn {
+	border: none;
+	cursor: default;
+    background-color: transparent;
+}
+
+#shopping-list-table tr td .readonlyBtn:focus {
+	outline: none;
+}

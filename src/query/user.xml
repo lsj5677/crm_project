@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.crm.dao.UserDao">
+	<!-- 사용자 로그인 -->
+	<select id="userLogin" parameterType="user" resultType="user">
+		SELECT 	 c_user_id
+				,c_user_name
+				,c_user_level 
+		FROM 	 crm_user
+		WHERE	 c_user_id = #{c_User_Id}
+		AND		 c_user_pw = #{c_User_Pw}
+	</select>
+	<!-- 사용자 정보 생성 -->
+	<insert id="userInsertOk" parameterType="user">
+		INSERT INTO crm_User (
+        	 c_User_Id
+			,c_User_Pw
+			,c_User_Name
+            ,c_User_Department
+            ,c_User_Hp
+            ,c_User_Email
+            ,c_User_Birth
+            ,c_User_Addr
+            ,c_User_Addr2
+            ,c_User_Addr3
+            ,c_User_Level
+			,c_User_Insertdate
+			,c_User_Updatedate
+			,c_User_DeleteYN
+		) VALUES (
+			 #{c_User_Id}
+			,#{c_User_Pw}
+			,#{c_User_Name}
+			,#{c_User_Department}
+			,#{c_User_Hp}
+			,#{c_User_Email}
+			,#{c_User_Birth}
+			,#{c_User_Addr}
+			,#{c_User_Addr2}
+			,#{c_User_Addr3}
+			,#{c_User_Level}
+			,SYSDATE
+			,SYSDATE
+			,'Y'
+		)
+	</insert>
+	<!-- 사원 업데이트 폼 -->
+	<select id="userDetail"  parameterType="String" resultType="user">
+		SELECT	 a.*
+		FROM 	 crm_user a
+		WHERE 	 a.c_User_Id = #{c_User_Id}
+		AND 	 a.c_User_DeleteYN = 'Y'
+	</select>
+	<!-- 사용자 정보 수정 -->
+	<update id="userUpdateOk" parameterType="user">
+		UPDATE	 crm_User			
+		SET   	 c_User_Pw = #{c_User_Pw}		
+		      	,c_User_Name = #{c_User_Name}
+		      	,c_User_Department = #{c_User_Department}
+		      	,c_User_Hp = #{c_User_Hp}
+		      	,c_User_Email = #{c_User_Email}			
+		      	,c_User_Birth = #{c_User_Birth}		
+		      	,c_User_Addr = #{c_User_Addr}			
+		      	,c_User_Addr2 = #{c_User_Addr2}			
+		      	,c_User_Addr3 = #{c_User_Addr3}
+		      	,c_User_Level = #{c_User_Level}
+		      	,c_User_Updatedate = SYSDATE
+		WHERE 	 c_User_Id = #{c_User_Id}
+	</update>
+	<!-- 사용자 정보 삭제 -->
+	<update id="userDelete" parameterType="String">
+		UPDATE	 crm_User			
+		SET      c_User_DeleteYN = 'N'
+		WHERE 	 c_User_Id = #{c_User_Id}
+	</update>
+	<!-- 상세 페이지 아이디  -->
+	<select id="userDetailId"  parameterType="user" resultType="user">
+		SELECT	 a.*
+		FROM 	 crm_user a
+		WHERE 	 a.c_User_Id = #{c_User_Id}
+		AND 	 a.c_User_DeleteYN = 'Y'
+	</select>
+	<!-- 사용자 담당 고객 조회 -->
+	<select id="userClientList" parameterType="String" resultType="client">
+		SELECT	 A.*
+		FROM 	 crm_Client A
+		WHERE 	 c_User_Id = #{c_User_Id}
+		AND 	 c_Client_DeleteYN = 'Y'	
+	</select>
+	<!-- 총 게시글 갯수 출력 -->
+	<select id="userCountBoard" resultType="int">
+		SELECT COUNT(*) FROM crm_User
+		WHERE c_User_DeleteYN = 'Y' 
+		<trim prefix="AND">
+			<if test="search =='name'">
+				c_User_Name LIKE '%' || #{keyword}|| '%'
+			</if>
+		</trim>
+	</select>
+	<!-- 페이징 처리 후 게시글 조회 -->
+	<select id="userList" resultType="user">
+		SELECT * 
+		FROM (
+			SELECT ROWNUM RN, A.* 
+				FROM (
+						SELECT * 
+						FROM crm_User
+						WHERE c_User_DeleteYN = 'Y'	 
+						ORDER BY c_User_Name ASC
+						) A
+				)
+		<choose>
+			<when test="search =='name'">
+				WHERE c_User_Name LIKE '%' || #{keyword}|| '%'
+			</when>
+			<otherwise>
+				WHERE RN BETWEEN #{start} AND #{end}
+			</otherwise>
+		</choose>
+	</select>
+	<!-- Ajax 사용자 생성 시 ID 중복 조회 -->
+	<select id="userIdCheck" parameterType="String" resultType="int">
+		SELECT 	 COUNT(*)
+		FROM 	 crm_User
+		WHERE 	 c_User_Id = #{c_User_Id}
+	</select>
+
+</mapper>

@@ -1,0 +1,84 @@
+.userList-wrap {
+	display: flex;
+	justify-content: space-between;
+}
+
+.wrap table tr:nth-child(odd) {
+	background-color: transparent;
+}
+
+.userList-wrap table tr:nth-child(odd) {
+	background-color: #f5f5f5;
+}
+
+#userList-left-box {
+	width: 60%;
+	margin-right: 20px;
+	position: relative;
+}
+
+#userList-left-box table {
+	width: 100%;
+	margin-top: 20px;
+	border-width: 2px 0 0 0;
+}
+
+#userList-left-box table tr td {
+	text-align: left;
+}
+
+#userList-left-box .button-align-right {
+	text-align: right;
+	padding-right: 0;
+}
+
+.userList-right-box {
+	background-color: #fff;
+	width: 40%;
+}
+
+.userList-right-box table tr {
+	background-color: #fff !important;
+}
+
+.userList-right-box table td {
+	border: 1px solid #ddd;
+}
+
+.userList-right-box table td:last-child {
+	text-align: left;
+}
+
+.userList-right-box table td.button-align-center {
+	text-align: center;
+}
+
+.userList-right-box .user-infomation {
+	text-align: center;
+}
+
+.userList-right-box .user-image {
+	margin: 20px 0;
+}
+
+.userList-right-box .user-image img {
+	width: 100%;
+	max-width: 80px;
+	height: 100%;
+	max-height: 80px;
+	border-radius: 50%;
+}
+
+.userList-right-box .user-info-text {
+	font-weight: 600;
+}
+
+.userList-right-box .user-info-text em {
+	font-size: 12px;
+	color: #555;
+}
+
+
+.button-align-right.client_list_button_wrap {
+	padding-right: 0;
+}

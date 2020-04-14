@@ -1,0 +1,73 @@
+.select-box {
+	display: inline-block;
+}
+
+.page-select-box {
+	float: right;
+}
+
+#boardContainer {
+	/* position: relative; */
+	min-height: 600px;
+}
+
+#boardSearch {
+	margin-bottom: 20px;
+}
+
+.paginate span {
+	margin: 0 3px;
+}
+
+.paginate img {
+	width: 14px;
+	height: 13px;
+	cursor: pointer;
+}
+
+.paginate a {
+	vertical-align: top;
+}
+
+.textAn {
+	margin: 0 8px;
+}
+
+.textAn.on {
+	color: #152f70;
+	font-weight: bold;
+	border-bottom: 1px solid #152f70;
+}
+
+.wrap table td.boardTitle {
+	cursor: pointer;
+	text-align: left;
+}
+
+.boardList-link {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin-bottom: 40px;
+}
+
+.boardList-link li {
+	width: 200px;
+	box-sizing: border-box;
+	text-align: center;
+	margin: 0 20px;
+}
+
+.boardList-link li a {
+	display: block;
+    padding: 15px;
+    border: 1px solid #b6cee8;
+    border-radius: 2px;
+}
+
+.boardList-link li a:hover {
+	background-color: #b6cce8;
+	color: #fff;
+	transition: .3s all ease;
+}

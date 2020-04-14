@@ -1,0 +1,79 @@
+@CHARSET "UTF-8";
+
+.boardList-wrap table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.boardList-wrap table {
+	border-top: 2px solid #ccc;
+	margin-top: 30px;
+}
+
+.boardList-wrap table thead tr th {
+	padding: 14px 0;
+	vertical-align: middle;
+}
+
+.boardList-wrap table tbody tr td {
+	border-collapse: collapse;
+	border-top: 1px solid #ddd;
+	padding: 10px;
+	font-size: 13px;
+	vertical-align: middle;
+}
+
+.boardList-wrap table tbody tr td select {
+	padding: 5px;
+}
+
+.boardList-wrap table tbody tr td#btd2 {
+	text-align: right;
+}
+
+.boardBtn {
+	height: 30px;
+	background-color: #b6cee8;
+	color: #fff;
+	border: none;
+	border-radius: 3px;
+	width: 112px;
+	cursor: pointer;
+}
+
+.boardBtn:hover {
+	background-color: #539bed;
+	transition: .3s all ease;
+}
+
+.writeBtn {
+	float: right;
+	clear: both;
+}
+
+.datePicker {
+	text-align: center;
+	width: 150px !important;
+	height: 20px;
+}
+
+.goDetail, .goReply {
+	cursor: pointer;
+}
+
+.paginate {
+	display: block;
+	margin: 70px auto;
+	text-align: center;
+}
+
+.paginate img {
+	width: 20px;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+a.textAn {
+	font-size: 17px;
+	padding: 6px;
+}

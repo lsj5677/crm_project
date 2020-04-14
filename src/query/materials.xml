@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.crm.dao.MaterialsDao">
+
+<sql id="boardCommon">
+	SELECT c_materials_no, c_materials_title,c_materials_name,c_materials_memo,
+	c_materials_file,c_materials_oFile,c_materials_pw,c_materials_insertdate,
+	c_materials_updatedate,c_materials_viewcount,c_materials_deleteyn
+	FROM MATERIALS
+	<trim prefix="WHERE" prefixOverrides="AND">
+		<if test="search=='c_materials_title'">
+		<![CDATA[c_materials_title LIKE '%'|| #{keyword}||'%']]>
+	
+	</if>
+	<if test="search=='c_materials_memo'">
+		<![CDATA[ AND c_materials_memo LIKE '%'|| #{keyword}||'%']]>
+	
+	</if>
+	
+	<if test="search=='c_materials_name'">
+		<![CDATA[ AND c_materials_name LIKE '%'|| #{keyword}||'%']]>
+	
+	</if>
+		<if test="search=='c_materials_file'">
+		<![CDATA[ AND c_materials_file LIKE '%'|| #{keyword}||'%']]>
+	
+	</if>
+	</trim>
+
+</sql>
+
+	<select id ="listBoard" parameterType="materials" resultType="materials">
+	
+	SELECT
+	C_MATERIALS_NO
+	,C_MATERIALS_TITLE
+	,C_MATERIALS_NAME
+	,C_MATERIALS_MEMO
+	,C_MATERIALS_FILE
+	,C_MATERIALS_PW
+	,c_MATERIALS_VIEWCOUNT
+	,to_char(C_MATERIALS_INSERTDATE,'YYYY-MM-DD') as C_MATERIALS_INSERTDATE
+	FROM ( SELECT list.*, ROWNUM AS RNUM
+		FROM(
+			<include refid="boardCommon"></include>
+			ORDER BY c_materials_no desc
+			)	list				
+)
+<where>
+	<if test="start_row != null and start_row !=''">
+	<if test="end_row != null and end_row !=''">
+		RNUM BETWEEN #{start_row} AND #{end_row}
+	
+	</if>
+	
+	</if>
+</where>
+
+</select>
+<select id="materialsCnt" parameterType="materials" resultType="int">
+	SELECT NVL(count(1),0)FROM
+	(	SELECT list.*,ROWNUM AS RNUM
+	FROM(
+		<include refid="boardCommon"></include>
+		ORDER BY c_materials_no desc
+	)list
+)
+
+
+</select>
+
+<select id="selectBoard" parameterType="materials" resultType="materials">
+SELECT
+	C_MATERIALS_NO
+	,C_MATERIALS_TITLE
+	,C_MATERIALS_NAME
+	,C_MATERIALS_MEMO
+	,C_MATERIALS_FILE
+	,C_MATERIALS_OFILE
+	,C_MATERIALS_PW
+	,C_MATERIALS_INSERTDATE,C_MATERIALS_UPDATEDATE, C_MATERIALS_DELETEYN
+	FROM MATERIALS
+	WHERE C_MATERIALS_NO =#{c_materials_no}
+</select>
+	
+	<select id="chaebunBoard2" resultType="String">
+	SELECT NVL(MAX(SUBSTR(C_MATERIALS_NO,2)),0) +
+	 1 AS C_MATERIALS_NO 
+	 FROM MATERIALS
+	
+</select>
+
+<insert id="insertBoard" parameterType="materials" >
+
+	INSERT INTO MATERIALS
+	( c_materials_no
+	,c_materials_title
+	,c_materials_name
+	,c_materials_memo
+	,c_materials_file
+	,c_materials_ofile
+	,c_materials_pw
+	,C_MATERIALS_INSERTDATE
+	,C_MATERIALS_UPDATEDATE
+	,C_MATERIALS_DELETEYN)
+	VALUES
+	
+	(#{c_materials_no},#{c_materials_title},#{c_materials_name},#{c_materials_memo},#{c_materials_file},#{c_materials_oFile},#{c_materials_pw},SYSDATE,SYSDATE,'Y')
+
+</insert>
+
+<update id="updateBoard" parameterType="materials">
+	UPDATE MATERIALS
+	SET C_MATERIALS_NO = #{c_materials_no}
+		,C_MATERIALS_TITLE = #{c_materials_title}
+		,C_MATERIALS_NAME = #{c_materials_name}
+		,C_MATERIALS_MEMO = #{c_materials_memo}
+		,C_MATERIALS_FILE = #{c_materials_file}
+		,C_MATERIALS_UPDATEDATE = SYSDATE	
+		WHERE C_MATERIALS_NO = #{c_materials_no}
+
+</update>
+<update id="ViewCnt">
+	update MATERIALS
+	set c_materials_viewcount = NVL(c_materials_viewcount,0) + 1
+	where c_materials_no = #{c_materials_no}
+
+
+</update>
+	<delete id="deleteBoard" parameterType="materials">
+	
+	DELETE FROM MATERIALS
+	 WHERE C_MATERIALS_NO =#{c_materials_no}
+	
+	</delete>
+
+</mapper>

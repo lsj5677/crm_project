@@ -1,0 +1,376 @@
+@CHARSET "UTF-8";
+
+
+/*** common ***/
+.wrap {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	box-sizing: border-box;
+	overflow: hidden;
+	background-color: #f5f5f5;
+}
+
+.sub-wrap {
+	width: 95%;
+	margin: 0 auto;
+}
+
+i.fa, i.fas {
+	font-size: 20px;
+	vertical-align: middle;
+	color: #f5f5f5;
+}
+
+i.fa-sm {
+	font-size: 14px;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+	color: #fff;
+	opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+	color: #fff;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+	color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 5px;  /* 세로축 스크롤바 길이 */
+  height: 10px;  /* 가로축 스크롤바 길이 */
+}
+::-webkit-scrollbar-track {
+  background-color: lightblue;
+}
+::-webkit-scrollbar-track-piece {
+  background-color: #d8dbe2;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #bbb;
+}
+::-webkit-scrollbar-button {
+  background-color: darkblue;
+  width: 10px;
+  height: 5px;
+}
+::-webkit-scrollbar-button:start {
+  background-color: #bbb; /* Top, Left 방향의 이동버튼 */
+}
+::-webkit-scrollbar-button:end {
+  background-color: #bbb; /* Bottom, Right 방향의 이동버튼 */
+}
+
+::-webkit-scrollbar-corner {
+  background-color: #bbb; /* 우측 하단의 코너 부분 */
+}
+::-webkit-resizer {
+  background-color: #bbb;
+}
+
+.header .header-wrap,
+.footer .footer-wrap  {
+	width: 95%;
+	margin: 0 auto;
+}
+
+.container {
+	margin: 60px 0 0 220px;
+	padding: 50px;
+	width: 100%;
+    height: 100%;
+    min-height: 800px;
+}
+
+.sidebar {
+	margin-top: 60px;
+}
+
+/************************************** header **********************************/
+/*** header***/
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 60px;
+	z-index: 99999;
+	color: #222;
+	background-color: #b6cee8;
+	box-shadow: 1px 1px 5px #666;
+}
+
+/*** header-sicebar-menu-icon ***/
+.header-sidebar-menu-icon {
+	display: inline-block;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
+}
+
+
+
+/*** header-account-wrap ***/
+.header-account-wrap {
+	margin-top: 10px;
+	display: inline-block;
+	float: right;
+}
+
+.header-account-wrap .header-account-inner {
+	text-align: right;
+	display: flex;
+	align-items: center;
+}
+
+.header-account-wrap .header-account-inner > li {
+	position: relative;
+	cursor: pointer;
+}
+
+.header-account-wrap .header-account-inner > li:hover {
+	color: #152f70;
+}
+
+.header-account-inner .account-user-info span {
+	display: inline-block;
+	vertical-align: middle;	
+	font-size: 15px;
+	color: #f5f5f5;
+	cursor: pointer;
+	margin-left: 5px;
+	position: relative;
+}
+
+.header-account-inner .account-user-info .account-user-img img {
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+}
+
+.header-account-inner > li {
+	margin-left: 20px;	
+}
+
+/*** dropdown-wrap common***/
+.dropdown-wrap {
+	border: 1px solid #d8dbe2;
+	border-radius: 3px;
+	box-shadow: 2px 2px 2px #d8dbe2;
+	background-color: #fff;
+	font-size: 12px;
+	position: absolute;
+	right: 0;
+	top: 38px;
+	display: none;
+}
+
+.dropdown-menu li {
+	border-bottom: 1px solid #d8dbe2;
+	text-align: left;
+	padding: 5px;
+}
+
+.dropdown-menu li:last-child {
+	border-bottom: none;
+}
+
+.dropdown-menu li a {
+	line-height: 35px;
+	padding: 0 20px;
+	display: block;
+	color: #888;
+}
+
+.dropdown-menu li a:hover  {
+	color: #222;
+	background-color: #f5f5f5;
+	transition: .3s all ease;
+	border-radius: 3px;
+}
+
+.dropdown-menu li a span {
+	font-weight: 700;
+	color: #555;
+}
+/*** account-user-notification ***/
+
+.account-user-notification-dropdown {
+	width: 250px;
+}
+
+.user-notification-dropdown-menu > li .fa-sm {
+	vertical-align: middle;
+	color: #d8dbe2;
+	margin-right: 5px;
+}
+
+.user-notification-dropdown-menu .see-all {
+	text-align: center;
+}
+
+.user-notification-dropdown-menu .see-all .fa{
+	color: #555;
+}
+
+.notification-badge {
+	width: 15px;
+	height: 15px;
+	text-align: center;
+	display: inline-block;
+	background-color: #cf0000;
+	color: #fff;
+	font-size: 12px;
+	border-radius: 50%;
+	position: absolute;
+	top: -5px;
+	right: -10px;
+}
+
+/*** account-user-info ***/
+.account-user-name-dropdown {
+	width: 110px;
+	top: 49px;
+}
+
+.user-name-dropdown-menu > li:nth-child(2){
+	padding: 0 5px 10px;
+}
+
+.user-name-dropdown-menu > li {
+	border: none;
+}
+
+.user-name-dropdown-menu > li:last-child {
+	border-top: 1px solid #d8dbe2;
+}
+/*********************************************end of header**********************/
+
+
+/**********************************sidebar**************************************/
+.sidebar {
+	width: 220px;
+	background-color: #b6cee8;
+	position: fixed;
+	height: 100%;
+	box-shadow: 1px 1px 5px #bbb;
+	font-size: 13px;
+}
+
+.sidebar-wrap {
+	position: relative;
+	overflow: auto;
+	height: 100%;
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+}
+
+.sidebar-wrap::-webkit-scrollbar {
+	display: none; /* Chrome, Safari, Opera*/
+}
+
+/*** sidebar-logo-wrap ***/
+.sidebar-logo-wrap .sidebar-logo-content {
+	width: 110px;
+	margin: 60px auto;
+}
+
+.sidebar-logo-content img {
+	width: 100%;
+}
+
+/*** sidebar-menu-wrap ***/
+.sidebar-menu-wrap {
+	height: 100%;
+}
+
+.sidebar-menu-content ul li a {
+	display: block;
+	color: #676a6c;
+	font-weight: 600;
+
+}
+
+.sidebar-search-wrap,
+.sidebar-menu-content > ul > li > a {
+	padding: 20px;
+}
+
+.sidebar-search-wrap, .sidebar-menu-content > ul > li:first-child {
+	padding-top: 0;
+}
+
+.input-group {
+	position: relative;
+	border-bottom: 1px solid #d8dbe2;
+}
+
+.input-group .input-text {
+	padding: 6px;
+	border: none;
+	box-sizing: border-box;
+	background-color: transparent;
+}
+
+.input-button {
+	display: inline-block;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 0;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+.sidebar-menu-content > ul > li > a > i.fa {
+	font-weight: 600;
+	font-size: 13px;
+	color: #777;
+	margin-right: 10px;
+}
+
+.sidebar-menu-content > ul > li > a > i.fa-right {
+	float: right;	
+	margin-right: 0;
+	transition: .3s transform ease;
+}
+
+.sidebar-menu-content > ul > li > a > i.fa-right.fa-rotate {
+	transform: rotate(90deg);
+	transition: .3s transform ease;
+}
+
+.sidebar-2depth-menu li a {
+	padding: 10px 57px;
+}
+
+.sidebar-2depth-menu {
+	display: none;
+}
+
+.sidebar-menu-content ul li a:hover,
+.sidebar-menu-content ul li a:hover .fa,
+.sidebar-menu-content .sidebar-1depth-menu a.menu-on,
+.sidebar-menu-content .sidebar-1depth-menu a.menu-on .fa {
+	color: #152f70;
+}
+
+/****************footer***************/
+/*** footer ***/
+footer{
+	width: 100%;
+	background-color: #b6cee8;
+}
+
+.footer-wrap p {
+	font-size: 12px;
+	padding:10px 0;
+	text-align: right;
+	text-transform: uppercase;
+}

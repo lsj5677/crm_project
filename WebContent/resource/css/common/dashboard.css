@@ -1,0 +1,185 @@
+@CHARSET "UTF-8";
+
+/* sub-container */
+.sub-container {
+	/* outline: 1px solid blue; */
+	min-height: 150px;
+	clear: both;
+	margin-bottom: 50px;
+	overflow: hidden;
+}
+
+.flex-section {
+	display: flex;
+}
+
+.sub-container .sub-container-contents {
+	/* outline: 1px solid red; */
+	min-height: 150px;
+	/* display: flex; */
+}
+
+.sub-container .sub-container-contents.col {
+	float: left;
+}
+
+.sub-container .sub-container-contents.col-2, .sub-container .sub-container-contents .col-sub-2
+	{
+	width: 50%;
+	position: relative;
+}
+
+.sub-container .sub-container-contents.col-4 {
+	width: 25%;
+}
+
+/********** weather ********/
+.weather-wrap {
+	background-color: #FCC120;
+	height: 100%;
+	position: relative;
+}
+
+#weather {
+	width: 50%;
+	height: 100%;
+	position: absolute;
+}
+
+/*** weatherBox ***/
+.conBox {
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	display: flex;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.con-left-box {
+	width: 40%;
+}
+
+.con-right-box {
+	width: 60%;
+}
+
+.conBox li {
+	color: #fff;
+	line-height: 1.5;
+	/* display: inline-block;
+	font-size: 16px;
+    margin: 0 20px; */
+}
+
+.conBox li:first-child {
+	font-size: 18px;
+}
+
+.wfEn .fas.weather, .wfEn .far.weather, .far.dust-icon {
+	font-size: 70px;
+	color: #fff;
+}
+
+#dust {
+	width: 50%;
+	height: 100%;
+	position: absolute;
+	right: 0;
+	background-color: #b6cee8;
+}
+
+#exRate {
+	display: flex;
+}
+
+.exConBox {
+	width: 25%;
+	padding: 10px;
+	margin: 0 10px;
+	color: #fff;
+}
+
+.exConBox:first-child {
+	background-color: #b6cee8;
+	margin-left: 0;
+}
+
+.exConBox:nth-child(2) {
+	background-color: #FCC120;
+}
+
+.exConBox:nth-child(3) {
+	background-color: #b6cee8;
+}
+
+.exConBox:last-child {
+	background-color: #FCC120;
+	margin-right: 0;
+}
+
+.exConBox .name {
+	font-size: 16px;
+	font-weight: 500;
+	border-bottom: 1px dashed #ddd;
+	padding: 10px 0 20px;
+	margin-bottom: 10px;
+}
+
+.exConBox .basePrice {
+	font-size: 22px;
+	line-height: 2.5;
+}
+
+.exConBox .cashBuyingPrice, .exConBox .cashSellingPrice {
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+.price .price-title {
+	width: 100px;
+	display: inline-block;
+	position: relative;
+}
+
+.price .price-title:after {
+	content: '';
+	position: absolute;
+	width: 1px;
+	height: 12px;
+	background-color: #fff;
+	top: 5px;
+	right: 14px;
+}
+
+.wrap #noticeTable {
+	border: none;
+	border-top: 2px solid #b6cee8;
+}
+
+.wrap #noticeTable td {
+	padding: 12px;
+	border-bottom: 1px solid #ddd;
+	box-sizing: border-box;
+}
+
+.wrap #noticeTable td.board_title {
+	width: 60%;
+    text-align: left;
+    position: relative;
+    padding-left: 20px;
+}
+
+.wrap #noticeTable td.board_title:before {
+	position: absolute;
+	content: '';
+	width: 3px;
+	height: 3px;
+	background-color: #b6cee8;
+	top: 50%;
+	left: 10px;
+	border-radius: 50%;
+}

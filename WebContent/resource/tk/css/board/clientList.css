@@ -1,0 +1,161 @@
+.clientList-wrap {
+	padding: 20px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+}
+
+.clientList-wrap>div {
+	padding: 20px;
+	border: 1px solid #ddd;
+	box-shadow: 1px 1px 3px #ddd;
+	border-radius: 3px;
+}
+
+.clientList-left-box {
+	width: 100%;
+	background-color: #fff;
+	margin-right: 20px;
+}
+
+.clientList-wrap .clientList-left-box table {
+	margin-top: 20px;
+}
+
+.clientList-wrap table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.clientList-wrap table {
+	border-top: 2px solid #ccc;
+	margin-top: 30px;
+}
+
+.clientList-wrap table tbody tr th {
+	padding: 14px 0;
+}
+
+.clientList-wrap table tbody tr td {
+	border-collapse: collapse;
+	border-top: 1px solid #ddd;
+	padding: 10px;
+	font-size: 13px;
+	vertical-align: middle;
+}
+
+.clientList-wrap table tbody tr td.padding-right-none {
+	padding-right: 0;
+}
+
+.clientList-title {
+	font-size: 18px;
+}
+
+.input-group-btn {
+	position: absolute;
+	right: 0;
+}
+
+.insertbtn {
+	border-radius: 3px;
+	width: 150px;
+	height: 40px;
+}
+
+.clientList-right-box {
+	background-color: #fff;
+}
+
+.clientList-right-box .user-infomation {
+	text-align: center;
+}
+
+.clientList-right-box .user-image {
+	margin: 20px 0;
+}
+
+.clientList-right-box .user-image img {
+	width: 100%;
+	max-width: 80px;
+	height: 100%;
+	max-height: 80px;
+	border-radius: 50%;
+}
+
+.clientList-right-box .user-info-text {
+	font-weight: 600;
+}
+
+.clientList-right-box .user-info-text em {
+	font-size: 12px;
+	color: #555;
+}
+
+#clientInsert {
+	width: 30%;
+	margin: 30px auto;
+}
+
+#clientInsert tr td {
+	padding: 20px;
+}
+
+#clientInsert tr td input {
+	padding: 3px;
+	border: 1px solid #ddd;
+}
+
+#clientInsert tr td input.input-text {
+	width: 100%;
+	height: 20px;
+}
+
+.input-btn {
+	position: relative;
+	border-radius: 3px;
+	margin-top: 20px;
+}
+
+.input-btn>input {
+	z-index: 2;
+	width: 100%;
+	margin-bottom: 0;
+	height: 30px !important;
+	border-radius: 3px;
+	border: 1px solid #d8dbe2;
+	padding-left: 10px;
+	box-sizing: border-box;
+}
+
+.input-btn .button, .clientBtn {
+	height: 30px;
+	background-color: #b6cee8;
+	color: #fff;
+	border: none;
+	border-radius: 0 3px 3px 0;
+	width: 112px;
+	cursor: pointer;
+}
+
+.clientBtn {
+	border-radius: 3px;
+}
+
+.input-btn .button:hover, .clientBtn:hover {
+	background-color: #539bed;
+	transition: .3s all ease;
+}
+
+.input-btn .button i.fa {
+	font-size: 13px;
+}
+
+.addr-input {
+	height: 20px;
+}
+
+.addr-input#c_Client_Addr3 {
+	margin-top: 8px;
+	width: 58%;
+}

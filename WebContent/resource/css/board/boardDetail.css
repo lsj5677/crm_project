@@ -1,0 +1,23 @@
+#boardDeail table td {
+	border: 1px solid #eee;
+	text-align: left;
+}
+
+#boardDeail table td.ac {
+	text-align: center;
+}
+
+#pwdChk {
+	display: block;
+	margin-top: 10px;
+	text-align: right;
+}
+
+#msg {
+	display: block;
+	margin-top: 10px;
+}
+
+.align-right {
+	margin-top: 20px;
+}

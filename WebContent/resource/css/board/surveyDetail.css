@@ -1,0 +1,41 @@
+#sform {
+	border-top: 2px solid #b6cee8;
+}
+
+input[type="text"] {
+	padding: 3px 5px;
+	border: none;
+	border-bottom: 1px solid #ddd;
+	outline: none;
+	margin: 10px 0;
+	background-color: transparent;
+}
+
+.cgroup {
+	text-align: right;
+}
+
+.essential {
+	margin: 20px 0;
+}
+
+.essential-item {
+	margin: 40px 0;
+}
+
+.essential-item input {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 10px;
+}
+
+.opini_content {
+	border: 1px solid #ddd;
+	padding: 10px;
+	margin-top: 10px;
+	resize: none;
+	width: 100%;
+	height: 200px;
+	box-sizing: border-box;
+	font-family: sans-serif;
+}

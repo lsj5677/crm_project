@@ -1,0 +1,44 @@
+.chart-select {
+	display: flex;
+	flex-wrap: wrap;
+	float: right;
+	position: relative;
+	z-index: 2;
+}
+
+.chart-select>div {
+	margin-right: 20px;
+}
+
+.chart-select>div p {
+	margin-bottom: 10px;
+}
+
+.select-box select {
+	width: 100px;
+	height: 25px;
+}
+
+.chart-wrap {
+	position: relative;
+}
+
+.unit {
+	position: absolute;
+	font-weight: bold;
+	color: #666;
+}
+
+#unit-right {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 40px;
+    
+}
+
+#unit-left {
+	left: 4px;
+	top: 45px;
+}
+
+
